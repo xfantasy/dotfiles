@@ -32,16 +32,15 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin
 export NODE_PATH=/usr/local/lib/jsctags/:$NODE_PATH
 alias v="open -a MacVim"
-hash -d workspace="/Users/lufei/workspace"
+hash -d workspace="~/workspace"
 hash -d trunk="/Users/lufei/workspace/trunk/"
+hash -d dropbox="/Users/lufei/Dropbox"
 
 # Customize to your needs...
 alias ..="cd .."
 alias la="ls -la"
 alias ll="ls -l"
 alias ~="cd ~"
-alias wordspace="cd ~/workspace/"
-alias trunk="cd ~/workspace/trunk/"
 alias mcd="mvn clean deploy"
 alias grep="grep --color=auto"
 alias fuckgfw='ssh -qTfnN -D 7070 lufei@shaoshuai.me'

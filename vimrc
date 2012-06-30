@@ -14,7 +14,6 @@ Bundle 'gmarik/vundle'
 Bundle "scrooloose/nerdtree"
 Bundle "scrooloose/nerdcommenter"
 Bundle "pangloss/vim-javascript"
-Bundle "ervandew/supertab"
 Bundle "scrooloose/syntastic"
 Bundle "mattn/zencoding-vim"
 Bundle "lepture/vim-velocity"
@@ -23,11 +22,12 @@ Bundle "altercation/vim-colors-solarized"
 Bundle "jsbeautify"
 Bundle "snipMate"
 Bundle "jQuery"
-"-------------------------------------下面的版本有可能导致不稳定
+Bundle "taglist-plus"
 Bundle "L9"
 Bundle "FuzzyFinder"
-Bundle "taglist-plus"
-"Bundle "Command-T"
+"-------------------------------------
+Bundle "AutoComplPop"
+"Bundle "ervandew/supertab"
 "Bundle "tpope/vim-surround"
 
 " basic
@@ -46,6 +46,8 @@ set hlsearch
 set list
 set cc=81
 set listchars=tab:→\ ,eol:↓
+set dictionary+=/usr/share/dict/words
+set spell
 syntax on
 
 
@@ -100,7 +102,7 @@ endfor
 
 " plugins setting
 " syntastic check
-let g:syntastic_check_on_open=0
+let g:yntastic_check_on_open=0
 let g:syntastic_check_on_save=1
 let loaded_html_syntax_checker=0
 "vim-javascript
@@ -111,12 +113,23 @@ let g:html_indent_style1="inc"
 let NERDTreeShowBookmarks=1
 let Tlist_Use_Right_Window=1
 let Tlist_javascript_Hide_Extras=['type']
+let Tlist_Auto_Highlight_Tag=1
+let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
+" supertab
+"let g:SuperTabRetainCompletionType=2
+"let g:SuperTabDefaultCompletionType="<C-X><C-O>"
+"let g:SuperTabDefaultCompletionType = "context"
+
+"AutoComplPop
+let g:acp_completeOption = '.,w,b,u,t,i,k'
+let g:acp_behaviorSnipmateLength=1
+
 
 "filetype
 filetype indent on
 au BufRead,BufNewFile *.less set ft=css
 au BufRead,BufNewFile *.json set ft=javascript
-au FileType javascript setlocal smartindent textwidth=80 omnifunc=javascriptcomplete#CompleteJS
+au FileType javascript setlocal smartindent textwidth=80 omnifunc=javascriptcomplete#CompleteJS dictionary+=$HOME/.vim/dict/node.dict
 au FileType css setlocal syntax=css omnifunc=csscomplete#CompleteCSS
 au FileType python setlocal textwidth=79 omnifunc=pythoncomplete#Complete
 au FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -183,6 +196,24 @@ nnoremap <silent> s.     :FufBufferTagAll<CR>
 "nnoremap <silent> se     :FufEditDataFile<CR>
 "nnoremap <silent> sr     :FufRenewCache<CR>
 
+"自动完成右括号 
+fun! ClosePair(char)
+    if getline('.')[col('.') - 1] == a:char
+        return "\<Right>"
+    else
+        return a:char
+    endif
+endf
+:inoremap ( ()<ESC>i
+:inoremap ) <c-r>=ClosePair(')')<CR>
+:inoremap { {}<ESC>i
+:inoremap } <c-r>=ClosePair('}')<CR>
+:inoremap [ []<ESC>i
+:inoremap ] <c-r>=ClosePair(']')<CR>
+:inoremap < <><ESC>i
+:inoremap > <c-r>=ClosePair('>')<CR>
+
+
 
 " gui setting
 if has("gui_running")
@@ -190,7 +221,7 @@ if has("gui_running")
     set imactivatekey=D-space
     set transparency=0  "透明度
     set guioptions=egmrLt       
-    "winsize 90 60
+    winsize 100 40
     set guifont=Menlo:h12
     set linespace=2
     colorscheme molokai "主题
