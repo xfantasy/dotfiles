@@ -35,9 +35,9 @@ set wrap
 set autochdir
 set history=128
 set backspace=indent,eol,start
-set tabstop=4        "tab宽度
-set shiftwidth=4     "每个tab键=4空格
-set softtabstop=4
+set tabstop=2        "tab宽度
+set shiftwidth=2     "每个tab键=4空格
+set softtabstop=2
 set expandtab
 set helplang=cn,en    "显示中文帮助
 set mouse=a
@@ -129,9 +129,9 @@ let g:acp_behaviorSnipmateLength=1
 filetype indent on
 au BufRead,BufNewFile *.less set ft=css
 au BufRead,BufNewFile *.json set ft=javascript
-au FileType javascript setlocal smartindent textwidth=80 omnifunc=javascriptcomplete#CompleteJS dictionary+=$HOME/.vim/dict/node.dict
+au FileType javascript setlocal smartindent omnifunc=javascriptcomplete#CompleteJS dictionary+=$HOME/.vim/dict/node.dict
 au FileType css setlocal syntax=css omnifunc=csscomplete#CompleteCSS
-au FileType python setlocal textwidth=79 omnifunc=pythoncomplete#Complete
+au FileType python setlocal omnifunc=pythoncomplete#Complete setlocal tabstop=4 shiftwidth=4 softtabstop=4
 au FileType html set omnifunc=htmlcomplete#CompleteTags
 au FileType xml set omnifunc=xmlcomplete#CompleteTags
 au FileType java set omnifunc=javacomplete#Complete
@@ -151,11 +151,13 @@ let mapleader = ","
 set backspace=indent,eol,start
 set mouse=a
 map <Tab> <C-w><C-w>
-map <F2> :!svn update<CR>
-map <F3> :!svn commit --message=''<LEFT>
-map <F4> :NERDTreeToggle<CR>
-map <F5> :NERDTreeFind<CR>
-map <F6> :TlistToggle<CR>
+map <F2> :NERDTreeToggle<CR>
+map <F3> :NERDTreeFind<CR>
+map <F4> :TlistToggle<CR>
+map <F10> :!svn update<CR>
+map <F11> :!svn diff<CR>
+map <F12> :!svn commit --message=''<LEFT>
+
 " fuzzyFinder
 let g:fuf_modesDisable = []
 let g:fuf_mrufile_maxItem = 400
@@ -210,26 +212,24 @@ endf
 :inoremap } <c-r>=ClosePair('}')<CR>
 :inoremap [ []<ESC>i
 :inoremap ] <c-r>=ClosePair(']')<CR>
-:inoremap < <><ESC>i
-:inoremap > <c-r>=ClosePair('>')<CR>
 
 
 
 " gui setting
+" Highlight
+set cursorline
+set cursorcolumn
 if has("gui_running")
     set transparency=0  
     set imactivatekey=D-space
     set transparency=0  "透明度
     set guioptions=egmrLt       
-    winsize 100 40
+    "winsize 100 40
     set guifont=Menlo:h12
     set linespace=2
     colorscheme molokai "主题
-    " Highlight
-    set cursorline
-    set cursorcolumn
 else
-    set guifont=Monaco:h10
+    set guifont=Monaco:h12
     set background=dark
     let g:solarized_termcolors=256
     colorscheme solarized
