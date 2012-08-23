@@ -16,17 +16,21 @@ Bundle "scrooloose/nerdcommenter"
 Bundle "pangloss/vim-javascript"
 Bundle "scrooloose/syntastic"
 Bundle "mattn/zencoding-vim"
-Bundle "lepture/vim-velocity"
+Bundle "xfantasy/vim-velocity"
 Bundle "css3-syntax-plus"
 Bundle "altercation/vim-colors-solarized"
 Bundle "xfantasy/jsbeautify"
 Bundle "xfantasy/snipMate"
+Bundle 'skammer/vim-css-color'
 Bundle "jQuery"
 Bundle "taglist-plus"
 Bundle "L9"
 Bundle "FuzzyFinder"
-"-------------------------------------
 Bundle "AutoComplPop"
+"-------------------------------------
+Bundle "kchmck/vim-coffee-script"
+Bundle "othree/coffee-check.vim"
+
 "Bundle "ervandew/supertab"
 "Bundle "tpope/vim-surround"
 
@@ -45,8 +49,8 @@ set number
 set hlsearch
 set list
 set cc=81
-set listchars=tab:→\ ,eol:↓
-set dictionary+=/usr/share/dict/words
+set dictionary+=$HOME/.vim/dict/words
+set dictionary+=$HOME/.vim/dict/pop.dict
 set spell
 syntax on
 
@@ -114,28 +118,32 @@ let NERDTreeShowBookmarks=1
 let Tlist_Use_Right_Window=1
 let Tlist_javascript_Hide_Extras=['type']
 let Tlist_Auto_Highlight_Tag=1
-let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
+"let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
+let Tlist_Ctags_Cmd='/usr/local/bin/jsctags'
 " supertab
 "let g:SuperTabRetainCompletionType=2
 "let g:SuperTabDefaultCompletionType="<C-X><C-O>"
 "let g:SuperTabDefaultCompletionType = "context"
 
 "AutoComplPop
-let g:acp_completeOption = '.,w,b,u,t,i,k'
+let g:acp_completeOption='.,w,b,u,t,i,k'
 let g:acp_behaviorSnipmateLength=1
 
 
 "filetype
 filetype indent on
+setlocal omnifunc=syntaxcomplete#Complete
 au BufRead,BufNewFile *.less set ft=css
 au BufRead,BufNewFile *.json set ft=javascript
-au FileType javascript setlocal smartindent omnifunc=javascriptcomplete#CompleteJS dictionary+=$HOME/.vim/dict/node.dict
+au BufRead,BufNewFile *.vm setlocal ft=html fileencoding=gbk syntax=velocity
+au BufRead,BufNewFile *.coffee set ft=coffee
+au FileType javascript setlocal smartindent omnifunc=javascriptcomplete#CompleteJS dictionary+=$HOME/.vim/dict/node.dict dictionary+=$HOME/.vim/dict/javascript.dict
 au FileType css setlocal syntax=css omnifunc=csscomplete#CompleteCSS
 au FileType python setlocal omnifunc=pythoncomplete#Complete setlocal tabstop=4 shiftwidth=4 softtabstop=4
-au FileType html set omnifunc=htmlcomplete#CompleteTags
-au FileType xml set omnifunc=xmlcomplete#CompleteTags
-au FileType java set omnifunc=javacomplete#Complete
-au BufRead,BufNewFile *.vm setlocal ft=html fileencoding=gbk syntax=velocity
+au FileType htm,html,xhtml setlocal omnifunc=htmlcomplete#CompleteTags tabstop=4 shiftwidth=4 softtabstop=4 dictionary+=$HOME/.vim/dict/javascript.dict
+au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+au FileType php setlocal omnifunc=phpcomplete#CompletePHP
+au FileType java setlocal omnifunc=javacomplete#Complete
 
 " function
 func! ToggleWrapping()
@@ -206,6 +214,7 @@ fun! ClosePair(char)
         return a:char
     endif
 endf
+
 :inoremap ( ()<ESC>i
 :inoremap ) <c-r>=ClosePair(')')<CR>
 :inoremap { {}<ESC>i
@@ -213,16 +222,15 @@ endf
 :inoremap [ []<ESC>i
 :inoremap ] <c-r>=ClosePair(']')<CR>
 
-
-
 " gui setting
 " Highlight
-set cursorline
-set cursorcolumn
+"set cursorline
+"set cursorcolumn
 if has("gui_running")
+    set listchars=tab:.\ ,eol:↓
     set transparency=0  
     set imactivatekey=D-space
-    set transparency=0  "透明度
+    set transparency=5  "透明度
     set guioptions=egmrLt       
     "winsize 100 40
     set guifont=Menlo:h12
