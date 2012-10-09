@@ -29,9 +29,10 @@ plugins=(git svn node npm git-flow vundle osx)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:~/.sh/
+export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:~/.dotfiles/shell:/developer/android-sdk:/developer/android-sdk/tools:/developer/android-sdk/platform-tools
 export NODE_PATH=/usr/local/lib/jsctags/:$NODE_PATH
 alias v="open -a MacVim"
+
 hash -d workspace="/Volumes/User/xijiangbo/workspace"
 hash -d trunk="/Volumes/User/xijiangbo/workspace/trunk/"
 hash -d dropbox="/Volumes/User/xijiangbo/Dropbox/"

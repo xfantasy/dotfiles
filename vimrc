@@ -18,6 +18,7 @@ Bundle "scrooloose/syntastic"
 Bundle "mattn/zencoding-vim"
 Bundle "xfantasy/vim-velocity"
 Bundle "css3-syntax-plus"
+Bundle "othree/html5.vim"
 Bundle "altercation/vim-colors-solarized"
 Bundle "xfantasy/jsbeautify"
 Bundle "xfantasy/snipMate"
@@ -27,12 +28,13 @@ Bundle "taglist-plus"
 Bundle "L9"
 Bundle "FuzzyFinder"
 Bundle "AutoComplPop"
+Bundle "grep.vim"
 "-------------------------------------
 Bundle "kchmck/vim-coffee-script"
 Bundle "othree/coffee-check.vim"
 
-"Bundle "ervandew/supertab"
 "Bundle "tpope/vim-surround"
+"Bundle "ervandew/supertab"
 
 " basic
 set wrap
@@ -47,7 +49,6 @@ set helplang=cn,en    "显示中文帮助
 set mouse=a
 set number
 set hlsearch
-set list
 set cc=81
 set dictionary+=$HOME/.vim/dict/words
 set dictionary+=$HOME/.vim/dict/pop.dict
@@ -124,10 +125,11 @@ let Tlist_Ctags_Cmd='/usr/local/bin/jsctags'
 "let g:SuperTabRetainCompletionType=2
 "let g:SuperTabDefaultCompletionType="<C-X><C-O>"
 "let g:SuperTabDefaultCompletionType = "context"
-
 "AutoComplPop
 let g:acp_completeOption='.,w,b,u,t,i,k'
 let g:acp_behaviorSnipmateLength=1
+"grep
+let Grep_Skip_Files = '*.bak *.svn .*'
 
 
 "filetype
@@ -139,7 +141,7 @@ au BufRead,BufNewFile *.vm setlocal ft=html fileencoding=gbk syntax=velocity
 au BufRead,BufNewFile *.coffee set ft=coffee
 au FileType javascript setlocal smartindent omnifunc=javascriptcomplete#CompleteJS dictionary+=$HOME/.vim/dict/node.dict dictionary+=$HOME/.vim/dict/javascript.dict
 au FileType css setlocal syntax=css omnifunc=csscomplete#CompleteCSS
-au FileType python setlocal omnifunc=pythoncomplete#Complete setlocal tabstop=4 shiftwidth=4 softtabstop=4
+au FileType python setlocal omnifunc=pythoncomplete#Complete tabstop=4 shiftwidth=4 softtabstop=4
 au FileType htm,html,xhtml setlocal omnifunc=htmlcomplete#CompleteTags tabstop=4 shiftwidth=4 softtabstop=4 dictionary+=$HOME/.vim/dict/javascript.dict
 au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 au FileType php setlocal omnifunc=phpcomplete#CompletePHP
@@ -165,6 +167,9 @@ map <F4> :TlistToggle<CR>
 map <F10> :!svn update<CR>
 map <F11> :!svn diff<CR>
 map <F12> :!svn commit --message=''<LEFT>
+
+"grep
+nmap <F5> :rgrep <cword> *<CR>
 
 " fuzzyFinder
 let g:fuf_modesDisable = []
@@ -206,6 +211,15 @@ nnoremap <silent> s.     :FufBufferTagAll<CR>
 "nnoremap <silent> se     :FufEditDataFile<CR>
 "nnoremap <silent> sr     :FufRenewCache<CR>
 
+" dash
+nmap <leader>dv :silent !open dash://velocity:<cword><cr>
+nmap <leader>dj :silent !open dash://javascript:<cword><cr>
+nmap <leader>dq :silent !open dash://jquery:<cword><cr>
+nmap <leader>dh :silent !open dash://html:<cword><cr>
+nmap <leader>dc :silent !open dash://css:<cword><cr>
+nmap <leader>dm :silent !open dash://vim:<cword><cr>
+
+
 "自动完成右括号 
 fun! ClosePair(char)
     if getline('.')[col('.') - 1] == a:char
@@ -227,18 +241,20 @@ endf
 "set cursorline
 "set cursorcolumn
 if has("gui_running")
+    set list
     set listchars=tab:.\ ,eol:↓
     set transparency=0  
     set imactivatekey=D-space
-    set transparency=5  "透明度
+    "set transparency=3  "透明度
     set guioptions=egmrLt       
     "winsize 100 40
-    set guifont=Menlo:h12
-    set linespace=2
+    set guifont=Menlo:h13
+    set linespace=1
     colorscheme molokai "主题
-else
-    set guifont=Monaco:h12
     set background=dark
+else
+    colorscheme solarized "主题
     let g:solarized_termcolors=256
-    colorscheme solarized
+    set guifont=Monaco:h13
+    set background=dark
 end

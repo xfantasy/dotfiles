@@ -1,0 +1,4 @@
+#/usr/bin/zsh
+
+svn diff > /tmp/diff;
+open /tmp/diff -a MacVim
