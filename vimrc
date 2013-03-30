@@ -22,6 +22,7 @@ Bundle "othree/html5.vim"
 Bundle "altercation/vim-colors-solarized"
 Bundle "xfantasy/jsbeautify"
 Bundle "xfantasy/snipMate"
+Bundle "vim-scripts/nginx.vim"
 Bundle 'skammer/vim-css-color'
 Bundle "jQuery"
 Bundle "taglist-plus"
@@ -29,10 +30,11 @@ Bundle "L9"
 Bundle "FuzzyFinder"
 Bundle "AutoComplPop"
 Bundle "grep.vim"
-"-------------------------------------
+Bundle "statianzo/vim-jade"
+Bundle "groenewege/vim-less"
 Bundle "kchmck/vim-coffee-script"
 Bundle "othree/coffee-check.vim"
-
+"-------------------------------------
 "Bundle "tpope/vim-surround"
 "Bundle "ervandew/supertab"
 
@@ -41,9 +43,9 @@ set wrap
 set autochdir
 set history=128
 set backspace=indent,eol,start
-set tabstop=2        "tab宽度
-set shiftwidth=2     "每个tab键=4空格
-set softtabstop=2
+set tabstop=4        "tab宽度
+set shiftwidth=4     "每个tab键=4空格
+"set softtabstop=4
 set expandtab
 set helplang=cn,en    "显示中文帮助
 set mouse=a
@@ -139,6 +141,7 @@ au BufRead,BufNewFile *.less set ft=css
 au BufRead,BufNewFile *.json set ft=javascript
 au BufRead,BufNewFile *.vm setlocal ft=html fileencoding=gbk syntax=velocity
 au BufRead,BufNewFile *.coffee set ft=coffee
+au BufRead,BufNewFile /etc/nginx/* set ft=nginx
 au FileType javascript setlocal smartindent omnifunc=javascriptcomplete#CompleteJS dictionary+=$HOME/.vim/dict/node.dict dictionary+=$HOME/.vim/dict/javascript.dict
 au FileType css setlocal syntax=css omnifunc=csscomplete#CompleteCSS
 au FileType python setlocal omnifunc=pythoncomplete#Complete tabstop=4 shiftwidth=4 softtabstop=4
@@ -146,6 +149,8 @@ au FileType htm,html,xhtml setlocal omnifunc=htmlcomplete#CompleteTags tabstop=4
 au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 au FileType php setlocal omnifunc=phpcomplete#CompletePHP
 au FileType java setlocal omnifunc=javacomplete#Complete
+
+
 
 " function
 func! ToggleWrapping()
@@ -242,7 +247,7 @@ endf
 "set cursorcolumn
 if has("gui_running")
     set list
-    set listchars=tab:.\ ,eol:↓
+    set listchars=tab:\ \ ,eol:↓
     set transparency=0  
     set imactivatekey=D-space
     "set transparency=3  "透明度

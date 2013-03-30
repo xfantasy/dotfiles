@@ -29,9 +29,12 @@ plugins=(git svn node npm git-flow vundle osx)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:~/.dotfiles/shell:/developer/android-sdk:/developer/android-sdk/tools:/developer/android-sdk/platform-tools
-export NODE_PATH=/usr/local/lib/jsctags/:$NODE_PATH
+export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:~/.dotfiles/shell:/developer/android-sdk:/developer/android-sdk/tools:/developer/android-sdk/platform-tools:/usr/local/sbin
+export NODE_PATH=/usr/local/lib/node_modules:/usr/local/lib/jsctags/:$NODE_PATH
+export JAVA_LIBRARY_PATH=/Library/Java/JavaVirtualMachines/jdk1.7.0_17.jdk/Contents/Home:$JAVA_LIBRARY_PATH
+
 alias v="open -a MacVim"
+alias s="open -a Sublime\ Text\ 2"
 
 hash -d workspace="/Volumes/User/xijiangbo/workspace"
 hash -d trunk="/Volumes/User/xijiangbo/workspace/trunk/"
@@ -55,3 +58,9 @@ alias uu="svn up";
 alias cc="svn ci --message='test'"
 alias st="svn st"
 alias oo="open ./"
+
+alias cd=cdAndLs
+function cdAndLs() {
+    builtin cd "$@"
+    ls | head -20
+}
