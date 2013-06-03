@@ -11,32 +11,39 @@ Bundle 'gmarik/vundle'
 
 " http://vim-scripts.org/vim/scripts.html
 " vim script list
+Bundle "jQuery"
+Bundle "altercation/vim-colors-solarized"
 Bundle "scrooloose/nerdtree"
 Bundle "scrooloose/nerdcommenter"
-Bundle "pangloss/vim-javascript"
 Bundle "scrooloose/syntastic"
 Bundle "mattn/zencoding-vim"
 Bundle "xfantasy/vim-velocity"
 Bundle "css3-syntax-plus"
-Bundle "othree/html5.vim"
-Bundle "altercation/vim-colors-solarized"
 Bundle "xfantasy/jsbeautify"
 Bundle "xfantasy/snipMate"
 Bundle "vim-scripts/nginx.vim"
-Bundle 'skammer/vim-css-color'
-Bundle "jQuery"
 Bundle "taglist-plus"
-Bundle "L9"
-Bundle "FuzzyFinder"
-Bundle "AutoComplPop"
-Bundle "grep.vim"
 Bundle "statianzo/vim-jade"
 Bundle "groenewege/vim-less"
 Bundle "kchmck/vim-coffee-script"
 Bundle "othree/coffee-check.vim"
+Bundle "rizzatti/funcoo.vim"
+Bundle "rizzatti/dash.vim"
+Bundle "grep.vim"
+Bundle "AutoComplPop"
+Bundle "hallettj/jslint.vim"
+
+
 "-------------------------------------
-"Bundle "tpope/vim-surround"
-"Bundle "ervandew/supertab"
+"Bundle "skammer/vim-css-color"
+"Bundle "othree/html5.vim"
+"Bundle "L9"
+"Bundle "FuzzyFinder"
+
+Bundle "pangloss/vim-javascript"
+let g:html_indent_inctags = "html,body,head,tbody"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
 
 " basic
 set wrap
@@ -52,7 +59,7 @@ set mouse=a
 set number
 set hlsearch
 set cc=81
-set dictionary+=$HOME/.vim/dict/words
+"set dictionary+=$HOME/.vim/dict/words
 set dictionary+=$HOME/.vim/dict/pop.dict
 set spell
 syntax on
@@ -111,11 +118,13 @@ endfor
 " syntastic check
 let g:yntastic_check_on_open=0
 let g:syntastic_check_on_save=1
-let loaded_html_syntax_checker=0
+let loaded_html_syntax_checker=1
+
 "vim-javascript
 let g:html_indent_inctags="html,body,head,tbody"
 let g:html_indent_script1="inc"
 let g:html_indent_style1="inc"
+
 " NERDTree
 let NERDTreeShowBookmarks=1
 let Tlist_Use_Right_Window=1
@@ -123,13 +132,12 @@ let Tlist_javascript_Hide_Extras=['type']
 let Tlist_Auto_Highlight_Tag=1
 "let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 let Tlist_Ctags_Cmd='/usr/local/bin/jsctags'
-" supertab
-"let g:SuperTabRetainCompletionType=2
-"let g:SuperTabDefaultCompletionType="<C-X><C-O>"
-"let g:SuperTabDefaultCompletionType = "context"
+
+
 "AutoComplPop
 let g:acp_completeOption='.,w,b,u,t,i,k'
 let g:acp_behaviorSnipmateLength=1
+
 "grep
 let Grep_Skip_Files = '*.bak *.svn .*'
 
@@ -151,16 +159,6 @@ au FileType php setlocal omnifunc=phpcomplete#CompletePHP
 au FileType java setlocal omnifunc=javacomplete#Complete
 
 
-
-" function
-func! ToggleWrapping()
-    if &wrap == 1
-        set nowrap
-    else
-        set wrap
-    endif
-endf
-
 " key
 let mapleader = ","
 set backspace=indent,eol,start
@@ -177,49 +175,30 @@ map <F12> :!svn commit --message=''<LEFT>
 nmap <F5> :rgrep <cword> *<CR>
 
 " fuzzyFinder
-let g:fuf_modesDisable = []
-let g:fuf_mrufile_maxItem = 400
-let g:fuf_mrucmd_maxItem = 400
-nnoremap <silent> sj     :FufBuffer<CR>
-nnoremap <silent> sd     :FufDir<CR>
-nnoremap <silent> sn     :FufMruFile<CR>
-nnoremap <silent> sy     :FufLine<CR>
-nnoremap <silent> sk     :FufFileWithFullCwd<CR>
-nnoremap <silent> st     :FufTag<CR>
-nnoremap <silent> sm     :FufMruCmd<CR>
-nnoremap <silent> sf     :FufFile<CR>
-nnoremap <silent> sp     :FufChangeList<CR>
-nnoremap <silent> sg     :FufTaggedFile<CR>
-nnoremap <silent> sG     :FufTaggedFile!<CR>
-nnoremap <silent> s,     :FufBufferTag<CR>
-nnoremap <silent> s<     :FufBufferTag!<CR>
-nnoremap <silent> so     :FufBookmarkDirAdd<CR>
-nnoremap <silent> si     :FufBookmarkDir<CR>
-nnoremap <silent> s.     :FufBufferTagAll<CR>
-"nnoremap <silent> sL     :FufCoverageFileChange<CR>
-"nnoremap <silent> s<C-l> :FufCoverageFileRegister<CR>
-"nnoremap <silent> sd     :FufDirWithCurrentBufferDir<CR>
-"nnoremap <silent> sD     :FufDirWithFullCwd<CR>
-"nnoremap <silent> su     :FufBookmarkFile<CR>
-"nnoremap <silent> s<C-u> :FufBookmarkFileAdd<CR>
-"vnoremap <silent> s<C-u> :FufBookmarkFileAddAsSelectedText<CR>
-"nnoremap <silent> sT     :FufTag!<CR>
-"nnoremap <silent> s<C-]> :FufTagWithCursorWord!<CR>
-"vnoremap <silent> s,     :FufBufferTagWithSelectedText!<CR>
-"vnoremap <silent> s<     :FufBufferTagWithSelectedText<CR>
-"nnoremap <silent> s}     :FufBufferTagWithCursorWord!<CR>
-"nnoremap <silent> s>     :FufBufferTagAll!<CR>
-"vnoremap <silent> s.     :FufBufferTagAllWithSelectedText!<CR>
-"vnoremap <silent> s>     :FufBufferTagAllWithSelectedText<CR>
-"nnoremap <silent> s]     :FufBufferTagAllWithCursorWord!<CR>
-"nnoremap <silent> so     :FufJumpList<CR>
-"nnoremap <silent> se     :FufEditDataFile<CR>
-"nnoremap <silent> sr     :FufRenewCache<CR>
+"let g:fuf_modesDisable = []
+"let g:fuf_mrufile_maxItem = 400
+"let g:fuf_mrucmd_maxItem = 400
+"nnoremap <silent> sj     :FufBuffer<CR>
+"nnoremap <silent> sd     :FufDir<CR>
+"nnoremap <silent> sn     :FufMruFile<CR>
+"nnoremap <silent> sy     :FufLine<CR>
+"nnoremap <silent> sk     :FufFileWithFullCwd<CR>
+"nnoremap <silent> st     :FufTag<CR>
+"nnoremap <silent> sm     :FufMruCmd<CR>
+"nnoremap <silent> sf     :FufFile<CR>
+"nnoremap <silent> sp     :FufChangeList<CR>
+"nnoremap <silent> sg     :FufTaggedFile<CR>
+"nnoremap <silent> sG     :FufTaggedFile!<CR>
+"nnoremap <silent> s,     :FufBufferTag<CR>
+"nnoremap <silent> s<     :FufBufferTag!<CR>
+"nnoremap <silent> so     :FufBookmarkDirAdd<CR>
+"nnoremap <silent> si     :FufBookmarkDir<CR>
+"nnoremap <silent> s.     :FufBufferTagAll<CR>
 
 " dash
 nmap <leader>dv :silent !open dash://velocity:<cword><cr>
-nmap <leader>dj :silent !open dash://javascript:<cword><cr>
-nmap <leader>dq :silent !open dash://jquery:<cword><cr>
+nmap <leader>dj :silent !open dash://js:<cword><cr>
+nmap <leader>dq :silent !open dash://jq:<cword><cr>
 nmap <leader>dh :silent !open dash://html:<cword><cr>
 nmap <leader>dc :silent !open dash://css:<cword><cr>
 nmap <leader>dm :silent !open dash://vim:<cword><cr>
@@ -255,11 +234,13 @@ if has("gui_running")
     "winsize 100 40
     set guifont=Menlo:h13
     set linespace=1
-    colorscheme molokai "主题
+    "colorscheme molokai "主题
+    colorscheme solarized "主题
     set background=dark
 else
     colorscheme solarized "主题
-    let g:solarized_termcolors=256
-    set guifont=Monaco:h13
     set background=dark
+    "let g:solarized_termcolors=256
+    set guifont=Menlo:h10
 end
+
